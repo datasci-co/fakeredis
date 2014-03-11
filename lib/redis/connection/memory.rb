@@ -1077,7 +1077,12 @@ class Redis
         results = sort_keys(data[key])
         # Select just the keys unless we want scores
         results = results.map(&:first) unless with_scores
-        results[start..stop].flatten.map(&:to_s)
+        results = results[start..stop]
+        if results != nil
+          results.flatten.map(&:to_s)
+        else
+          []
+        end
       end
 
       def zrangebylex(key, start, stop, *opts)
