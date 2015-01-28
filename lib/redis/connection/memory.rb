@@ -45,7 +45,17 @@ class Redis
         @channels = nil
       end
 
-      def self.connect(options = {})
+      # Used for testing Redis connection errors.  Call this with true and exceptions will
+      # be thrown on connect and get.
+      def self.throw_errors(val)
+        @throw_errors = val
+      end
+
+      def self.connect(options = {})  
+        if @throw_errors
+          raise "Could not connect! (artificial error)"
+        end
+
         new(options)
       end
 
@@ -188,6 +198,10 @@ class Redis
       end
 
       def get(key)
+        if @throw_errors
+          raise "Could not get data (artificial error)"
+        end
+
         data_type_check(key, String)
         data[key]
       end
