@@ -47,7 +47,7 @@ class Redis
 
       # Used for testing Redis connection errors.  Call this with true and exceptions will
       # be thrown on connect and get.
-      def self.throw_errors(val)
+      def throw_errors(val)
         @throw_errors = val
       end
 
