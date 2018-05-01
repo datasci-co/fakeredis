@@ -216,6 +216,10 @@ class Redis
       end
 
       def hgetall(key)
+        if @throw_errors
+          raise "Could not get data (artificial error)"
+        end
+
         data_type_check(key, Hash)
         data[key].to_a.flatten || {}
       end
